@@ -16,6 +16,9 @@ module StringHelper =
 
     let mergeFASTA (input: string seq) = mergeLines ">" input
 
+    let extractFASTAId (header:string) =
+        header.Substring(header.IndexOf("_") + 1)
+
     ///Returns true if 'pattern' aligns to 'source' starting at the first character of 'source'
     let rec matchExactly (source: 'a list) (pattern: 'a list) =
         match pattern, source with

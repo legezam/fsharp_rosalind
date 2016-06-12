@@ -44,5 +44,7 @@
     <None Include="subs.fsx" />
     <None Include="gc.fsx" />
     <None Include="revc.fsx" />
+    <None Include="rna.fsx" />
+    <None Include="dna.fsx" />
   </ItemGroup>
 </Project>

@@ -36,3 +36,9 @@ module StringHelper =
         | character :: rest -> match matchExactly source pattern with 
                                   | true  ->  index :: (findMatches rest pattern (index + 1)) 
                                   | false ->  findMatches rest pattern (index + 1)
+    
+    ///If input is 'a' replaces with 'b', if input is 'b', replaces with 'a'
+    let swap (a:char) (b:char) (input:char) =
+        if input = a then b
+        elif input = b then a
+        else input

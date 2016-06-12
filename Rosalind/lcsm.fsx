@@ -1,14 +1,14 @@
 ﻿#load "StringHelpers.fsx"
+#load "IO.fsx"
 
-let input = "/tmp/rosalind_lcsm.txt"
-let output = "/tmp/rosalind_lcsmresult.txt"
+let exercise = "lcsm"
 
 open System
-open System.IO
 open System.Linq
 open StringHelpers
+open IO
 
-let read = File.ReadLines(input)
+let read = IO.ReadInputLines exercise
             |> StringHelper.mergeFASTA
             |> Seq.chunkBySize 2
             |> Seq.map (fun item -> (int <| item.[0].Substring(item.[0].IndexOf("_") + 1)), item.[1] |> List.ofSeq)
@@ -49,5 +49,4 @@ let result = findCommonSubstrings read
                 |> Seq.map (fun (str) -> sprintf "%s" (String.Join("", str)))
     
 
-
-File.WriteAllText(output, sprintf "%s" (result.First()))
+IO.WriteOutput exercise (result.First())

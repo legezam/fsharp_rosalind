@@ -1,12 +1,12 @@
 ﻿#load "StringHelpers.fsx"
+#load "IO.fsx"
 
-let input = "/tmp/rosalind_gc.txt"
-let output = "/tmp/rosalind_gcresult.txt"
+let exercise = "gc"
 
-open System.IO
 open System
 open System.Linq
 open StringHelpers
+open IO
 
 let aggregate (state: Map<string, float>) (row:string) (header:string) =
     let sum = row 
@@ -15,7 +15,7 @@ let aggregate (state: Map<string, float>) (row:string) (header:string) =
     let occ = Convert.ToDouble(sum) / Convert.ToDouble(row.Length)
     state.Add(StringHelper.extractFASTAId header, occ)
 
-let result = File.ReadLines(input) |> StringHelper.mergeFASTA
+let result = (IO.ReadInputLines exercise) |> StringHelper.mergeFASTA
 
 let headers = result
                 |> Seq.indexed
@@ -31,4 +31,5 @@ let acc = headers
             |> Seq.fold2 aggregate Map.empty data
             |> Seq.maxBy (fun (pair) -> pair.Value)
 
-File.WriteAllText(output, (sprintf "Rosalind_%s\n%f" acc.Key (acc.Value * 100.0)))
+
+IO.WriteOutput exercise (sprintf "Rosalind_%s\n%f" acc.Key (acc.Value * 100.0))
